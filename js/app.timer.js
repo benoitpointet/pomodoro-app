@@ -113,6 +113,7 @@ app.views.TimersList = Ext.extend(Ext.Panel, {
 });
 
 app.views.TimerDetail = Ext.extend(Ext.Panel, {
+    id: "timer-detail",
     dockedItems: [{
         xtype: 'toolbar',
         title: 'Timer',
@@ -176,12 +177,13 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         this.down("#phase").update(t.p);
         // update doc title
         document.title = displayTime(t.ptr) + ' | ' + t.p;
-        // update styling
-        this.addCls(t.p);
         // in case of phase change ...
         if(t.po != t.p && t.pt < 3 && document.hasFocus()) {
+            this.removeCls('focus');
+            this.removeCls('relax');
+            this.addCls(t.p);
             this.addCls('blink');
-            var sound = '/media/' + t.p;
+            var sound = 'media/' + t.p;
             this.down("#sound").update("<audio autoplay='autoplay' hidden='true'>"
             + "<source src='" + sound + ".mp3' type='audio/mpeg'/>"
             + "<source src='" + sound + ".ogg' type='audio/ogg'/>"
@@ -191,6 +193,7 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         }
        if (t.pt > 5) {
             this.down("#sound").update("");
+            this.removeCls("blink");
         }
     }
 });

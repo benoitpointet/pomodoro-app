@@ -1,0 +1,46 @@
+#timer-detail .x-html {
+	background-color: #333;
+	color: #eaeaea;
+	padding: 1em;
+    font-size: 200%;
+}
+
+#timer-detail.focus .x-html {
+	color: #c0d9e5;
+}
+
+#timer-detail.focus.blink .x-html {
+	color: #4bc4ff;
+}
+
+#timer-detail.relax .x-html {
+	color: #c0e5d9;
+}
+
+#timer-detail.relax.blink .x-html {
+	color: #4cffc6;
+}
+
+#phase {
+    font-size: 2.2em;
+	line-height:  0.9em;
+    text-transform: uppercase;
+}
+
+#time {
+    font-size: 3em;
+	line-height:  0.9em;
+}
+
+a,
+a:visited,
+a:active{
+	color: #999;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #bbb;
+	text-decoration: none;
+}
+
