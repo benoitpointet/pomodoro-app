@@ -177,6 +177,8 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         this.down("#phase").update(t.p);
         // update doc title
         document.title = displayTime(t.ptr) + ' | ' + t.p;
+        // update styling
+        this.addCls(t.p);
         // in case of phase change ...
         if(t.po != t.p && t.pt < 3 && document.hasFocus()) {
             this.removeCls('focus');
