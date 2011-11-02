@@ -131,6 +131,19 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
                     }
                 }
             },
+            {
+                text: 'Sound OFF',
+                ui: 'action',
+                listeners: {
+                    'tap': function () {
+                        this.setText(app.views.TimerDetail.playSound ? 'Sound OFF' : 'Sound ON');
+                        Ext.dispatch({
+                            controller: app.controllers.timers,
+                            action: 'toggleSound'
+                        });
+                    }
+                }
+            },
         ]
     }],
     styleHtmlContent:true,
@@ -146,6 +159,7 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
             id: "sound",
         }
     ],
+    playSound: false,
     updateWithTimer: function(timer) {
         var that = this;
         // unbind old timer
@@ -180,18 +194,20 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         // update styling
         this.addCls(t.p);
         // in case of phase change ...
-        if(t.po != t.p && t.pt < 3 && document.hasFocus()) {
+        if(t.po != t.p && t.pt < 3) {
             this.removeCls('focus');
             this.removeCls('relax');
             this.addCls(t.p);
             this.addCls('blink');
-            var sound = 'media/' + t.p;
-            this.down("#sound").update("<audio autoplay='autoplay' hidden='true'>"
-            + "<source src='" + sound + ".mp3' type='audio/mpeg'/>"
-            + "<source src='" + sound + ".ogg' type='audio/ogg'/>"
-            + "<source src='" + sound + ".wav' type='audio/x-wav'/>"
-            + "<source src='" + sound + ".m4a' type='audio/mp4a-latm'/>"
-            + "</audio>");
+            if (app.views.TimerDetail.playSound) {
+                var sound = 'media/' + t.p;
+                this.down("#sound").update("<audio autoplay='autoplay' hidden='true'>"
+                + "<source src='" + sound + ".mp3' type='audio/mpeg'/>"
+                + "<source src='" + sound + ".ogg' type='audio/ogg'/>"
+                + "<source src='" + sound + ".wav' type='audio/x-wav'/>"
+                + "<source src='" + sound + ".m4a' type='audio/mp4a-latm'/>"
+                + "</audio>");
+            }
         }
        if (t.pt > 5) {
             this.down("#sound").update("");
@@ -215,5 +231,8 @@ app.controllers.timers = new Ext.Controller({
                 app.views.timerDetail, options.animation
             );
         }
+    },
+    toggleSound: function(options) {
+       app.views.TimerDetail.playSound = !app.views.TimerDetail.playSound;
     },
 });
