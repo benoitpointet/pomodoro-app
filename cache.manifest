@@ -3,9 +3,15 @@ CACHE MANIFEST
 
 CACHE:
 index.html
-css/*
-js/*
-media/*
+css/sencha-touch.css
+js/app.js
+js/app.timer.js
+media/focus.m4a
+media/focus.m4a
+media/focus.mp3
+media/relax.ogg
+media/relax.mp3
+media/relax.ogg
 
 NETWORK:
 *
