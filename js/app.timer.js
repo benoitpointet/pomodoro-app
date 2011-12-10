@@ -107,7 +107,6 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
                 + "<source src='" + sound + ".mp3' type='audio/mpeg'/>"
                 + "<source src='" + sound + ".ogg' type='audio/ogg'/>"
                 + "<source src='" + sound + ".wav' type='audio/x-wav'/>"
-                + "<source src='" + sound + ".m4a' type='audio/mp4a-latm'/>"
                 + "</audio>");
             }
         }
