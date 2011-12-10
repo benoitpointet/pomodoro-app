@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 2010-1210:v1
+
+CACHE:
+index.html
+css/*
+js/*
+media/*
+
+NETWORK:
+*
+
+# no fallback yet
+# FALLBACK:
