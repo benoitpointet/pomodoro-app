@@ -132,11 +132,11 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
                 }
             },
             {
-                text: 'Sound OFF',
+                text: 'Sound is OFF',
                 ui: 'action',
                 listeners: {
                     'tap': function () {
-                        this.setText(app.views.TimerDetail.playSound ? 'Sound OFF' : 'Sound ON');
+                        this.setText(app.views.TimerDetail.playSound ? 'Sound is OFF' : 'Sound is ON');
                         Ext.dispatch({
                             controller: app.controllers.timers,
                             action: 'toggleSound'
