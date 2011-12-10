@@ -19,6 +19,7 @@ app.models.Timer = Ext.regModel("app.models.Timer", {
     },
 
     updateState: function() {
+        this.pth = 5; // phase change margin : +/- 5 secs
         this.fs = 1500; // focus length in seconds
         this.rs = 300; // relax length in seconds
         this.cs = this.fs + this.rs; // cycle length in seconds
@@ -71,36 +72,46 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
     ],
     listeners: {
         activate: function() {
-            var that = this;
-            this.timer.on("update", function(){
-                that.onTimerUpdate();
-            });
-            this.timer.start();
+            this.onInit();
         }
     },
+    onInit: function() {
+        var that = this;
+        this.timer.on("update", function(){
+            that.onTimerUpdate();
+        });
+    },
     onTimerUpdate: function() {
-        var d2 = function(n) {
-            return isNaN(n) ? '--' : ((n < 10) ? '0' + n : n);
-        };
-        var displayTime = function(t) {
-            var m = Math.floor(t / 60);
-            var s = t % 60;
-            return d2(m) + ':' + d2(s);
-        };
+        this.updateTitle();
+        this.updateGraphic();
+        this.updateSound();
+    },
+    updateGraphic: function() {
         var t = this.timer;
         // update display
-        this.down("#time").update(displayTime(t.ptr));
         this.down("#phase").update(t.p);
-        // update doc title
-        document.title = displayTime(t.ptr) + ' | ' + t.p;
+        this.down("#time").update(this.displayTime(t.ptr));
         // update styling
         this.addCls(t.p);
         // in case of phase change ...
-        if(t.po != t.p && t.pt < 3) {
+        if(t.po != t.p && t.pt < t.pth) {
             this.removeCls('focus');
             this.removeCls('relax');
             this.addCls(t.p);
             this.addCls('blink');
+        }
+       if (t.pt > t.pth) {
+            this.removeCls("blink");
+        }
+    },
+    updateTitle: function() {
+        var t = this.timer;
+        document.title = this.displayTime(t.ptr) + ' | ' + t.p;
+    },
+    updateSound: function() {
+        var t = this.timer;
+        // in case of phase change ...
+        if(t.po != t.p && t.pt < t.pth) {
             if (app.views.TimerDetail.playSound) {
                 var sound = 'media/' + t.p;
                 this.down("#sound").update("<audio autoplay='autoplay' hidden='true'>"
@@ -110,10 +121,18 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
                 + "</audio>");
             }
         }
-       if (t.pt > 5) {
+       if (t.pt > t.pth) {
             this.down("#sound").update("");
-            this.removeCls("blink");
         }
+
+    },
+    d2: function(n) {
+        return isNaN(n) ? '--' : ((n < 10) ? '0' + n : n);
+    },
+    displayTime: function(t) {
+        var m = Math.floor(t / 60);
+        var s = t % 60;
+        return this.d2(m) + ':' + this.d2(s);
     }
 });
 

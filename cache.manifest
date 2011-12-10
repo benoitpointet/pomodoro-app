@@ -8,10 +8,10 @@ css/app.css
 js/sencha-touch-debug.js
 js/app.js
 js/app.timer.js
-media/focus.m4a
-media/focus.m4a
+media/focus.wav
 media/focus.mp3
-media/relax.ogg
+media/focus.ogg
+media/relax.wav
 media/relax.mp3
 media/relax.ogg
 
