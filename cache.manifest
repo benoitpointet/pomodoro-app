@@ -4,6 +4,8 @@ CACHE MANIFEST
 CACHE:
 index.html
 css/sencha-touch.css
+css/app.css
+js/sencha-touch-debug.js
 js/app.js
 js/app.timer.js
 media/focus.m4a
