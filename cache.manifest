@@ -5,7 +5,7 @@ CACHE:
 index.html
 css/sencha-touch.css
 css/app.css
-js/sencha-touch-debug.js
+js/sencha-touch.js
 js/app.js
 js/app.timer.js
 media/focus.wav
