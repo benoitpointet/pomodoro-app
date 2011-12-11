@@ -19,7 +19,7 @@ app.models.Timer = Ext.regModel("app.models.Timer", {
     },
 
     updateState: function() {
-        this.pth = 5; // phase change margin : +/- 5 secs
+        this.pth = 8; // phase change margin : +/- 5 secs
         this.fs = 1500; // focus length in seconds
         this.rs = 300; // relax length in seconds
         this.cs = this.fs + this.rs; // cycle length in seconds
@@ -45,17 +45,27 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         title: 'Pomodoro EverTimer',
         items: [
             {
-                text: 'Sound is OFF',
-                ui: 'action',
+                xtype: 'spacer'
+            },
+            {
+                id: 'toggle-sound',
+                text: 'Sound',
+                cls: 'button-off',
+                ui: 'action-round',
                 listeners: {
                     'tap': function () {
-                        this.setText(app.views.TimerDetail.playSound ? 'Sound is OFF' : 'Sound is ON');
-                        Ext.dispatch({
-                            controller: app.controllers.timers,
-                            action: 'toggleSound'
-                        });
+                        this.toggle();
                     }
-                }
+                },
+                toggle: function() {
+                    var sound = app.views.TimerDetail.playSound;
+                    this.removeCls(sound ? 'button-on' : 'button-off');
+                    this.addCls(!sound ? 'button-on' : 'button-off');
+                    Ext.dispatch({
+                        controller: app.controllers.timers,
+                        action: 'toggleSound'
+                    });
+                },
             }
         ]
     }],
@@ -80,6 +90,7 @@ app.views.TimerDetail = Ext.extend(Ext.Panel, {
         this.timer.on("update", function(){
             that.onTimerUpdate();
         });
+        this.timer.start();
     },
     onTimerUpdate: function() {
         this.updateTitle();

@@ -1,3 +1,11 @@
+#toggle-sound.x-button.button-off {
+    color: red;
+}
+
+#toggle-sound.x-button.button-on {
+    color: green;
+}
+
 #timer-detail .x-html {
 	background-color: #333;
 	color: #eaeaea;
